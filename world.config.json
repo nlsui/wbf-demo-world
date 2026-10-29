@@ -1,0 +1,8 @@
+{
+  "title": "The Kavas Chronicles",
+  "entityTypes": ["character", "location", "faction"],
+  "buildVariants": {
+    "player-wiki": { "tags": ["player"], "dateRange": { "to": { "year": 152 } } },
+    "gm-wiki": {}
+  }
+}

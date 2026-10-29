@@ -1,0 +1,7 @@
+{
+  "name": "wbf-demo-world",
+  "private": true,
+  "dependencies": {
+    "world-building-framework": "0.2.1"
+  }
+}

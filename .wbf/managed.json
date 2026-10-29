@@ -1,0 +1,12 @@
+{
+  "frameworkVersion": "0.2.1",
+  "branch": "main",
+  "agents": [
+    "claude"
+  ],
+  "files": {
+    ".github/workflows/publish.yml": "40f93126146f946781755d94c3750b9b1497309df46db863f3f1a52d7766d4a8",
+    "AGENTS.md": "f3b15eb9c6353cd83ab8614e7acdc7a5f6c916887af68c1c68571afac5014b17",
+    ".claude/skills/world-vault/SKILL.md": "4d9734e5c0c9992723b385aa5772b1521c384e50a571b73c9c26c27f6ae95663"
+  }
+}
