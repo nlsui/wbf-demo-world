@@ -98,3 +98,11 @@ When an event changes something about an entity (it looks different, its status 
 Both fields are required together. The vault keeps every version, and the published wiki shows the whole history. Never overwrite an entity file's body to reflect an in-world change; that erases history the vault is designed to keep.
 
 Other files always link to an entity's **original, first-ever** file (its anchor), never to a later version. If you're not sure which id is the anchor, follow the file's `supersedes` chain back. Or reuse whatever id you already have for that entity: that's always the anchor once created.
+
+## 9. Secrets: each wiki shows whole files
+
+A world can publish several wikis (build variants in `world.config.json`, e.g. a player wiki and a GM wiki). They filter by **file**, using its `tags` and, for events, its date. Everything inside a file that's included is shown, body text and all.
+
+- Before writing, check which wikis the file will appear in: compare its `tags` with each variant's `tags` in `world.config.json`.
+- Keep anything meant for fewer readers (a GM secret, a later plot twist) out of files the wider audience sees. Put it in its own file with narrower tags, and link to it from there.
+- A link to a file a wiki leaves out turns into plain text, so its title still shows. Give secret files titles that don't give the secret away.
