@@ -4,5 +4,25 @@
   "buildVariants": {
     "player-wiki": { "tags": ["player"], "dateRange": { "to": { "year": 152 } } },
     "gm-wiki": {}
+  },
+  "timelines": {
+    "harbour-years": {
+      "title": "The harbour years",
+      "dateRange": { "from": { "year": 148 }, "to": { "year": 152 } }
+    },
+    "alea": {
+      "title": "The life of Alea Marrow",
+      "entities": ["[[2f81e2ca-ea26-4208-8380-5d4800e451af|Alea Marrow]]"]
+    },
+    "founding-to-fire": {
+      "title": "From founding to fire",
+      "from": "[[8d8a7a75-d18e-432a-8446-ba4a77ee585c|The founding of Port Kavas]]",
+      "to": "[[49cb5c11-25fd-495c-9bbc-fbc7be4de788|The burning of the harbour]]"
+    },
+    "ashen-circle": {
+      "title": "The rise of the Ashen Circle",
+      "entities": ["[[bd7231ad-8a84-4466-8e55-517f685c4956|The Ashen Circle]]"],
+      "wikis": ["gm-wiki"]
+    }
   }
 }
