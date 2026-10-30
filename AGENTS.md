@@ -1,9 +1,10 @@
 # Agent instructions
 
-This repo is a world built with the World Building Framework (version 0.2.3). Its content is a vault of UUID-named Markdown files next to `world.config.json`.
+This repo is a world built with the World Building Framework (version 0.2.4). Its content is a vault of UUID-named Markdown files next to `world.config.json`.
 
 - Read and write the vault only through the `wbf` command-line tool: run `npx wbf <command>` from this folder. It prints JSON.
 - Run `npx wbf schema` before writing anything, `npx wbf search <terms>` before creating something, and `npx wbf --help` for every command.
+- Entity types must be declared in `entityTypes` in `world.config.json` before an entity can use them as its `entityType`. If the world has none yet, or none that fits, suggest some to the user and add them there once they agree.
 - Never hand-write or hand-edit a vault `.md` file. Only `wbf create` and `wbf update` validate content, and only `create` generates the required UUID filename.
 - Show the user what you're about to write, and wait for their go-ahead, before `create` or `update`.
 

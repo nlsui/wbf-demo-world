@@ -19,7 +19,12 @@ Commands that take JSON input read it from stdin, or from a file with `--input <
 npx wbf schema
 ```
 
-This prints the framework's fixed fields, plus this world's own `entityType` list from `world.config.json`, if it declares one. Run it whenever you're unsure which fields are valid, especially before creating an entity with an `entityType` you haven't seen used here yet.
+This prints the framework's fixed fields with their shapes, this world's entity types from `world.config.json`, and example inputs. Run it whenever you're unsure which fields are valid.
+
+**Entity types must be declared before they're used.** An entity's `entityType` can only be one of the types in `entityTypes` in `world.config.json`. A new world declares none, so `schema` says so and `create` rejects any `entityType`. When the world has no types yet, or none that fits what the user wants to add:
+- Suggest types that fit their world (e.g. `character`, `location`, `faction`, or `ship`, `deity`, …) and ask the user.
+- Once they agree, add them to `entityTypes` in `world.config.json`. That's a plain JSON file, not a vault file, so you edit it directly.
+- Don't invent a new type silently, and don't drop `entityType` just to get past the check.
 
 ## 2. Search before creating
 
