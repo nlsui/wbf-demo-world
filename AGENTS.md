@@ -1,6 +1,6 @@
 # Agent instructions
 
-This repo is a world built with the World Building Framework (version 0.2.5). Its content is a vault of UUID-named Markdown files next to `world.config.json`.
+This repo is a world built with the World Building Framework (version 0.2.6). Its content is a vault of UUID-named Markdown files next to `world.config.json`.
 
 - Read and write the vault only through the `wbf` command-line tool: run `npx wbf <command>` from this folder. It prints JSON.
 - Run `npx wbf schema` before writing anything, `npx wbf search <terms>` before creating something, and `npx wbf --help` for every command.
