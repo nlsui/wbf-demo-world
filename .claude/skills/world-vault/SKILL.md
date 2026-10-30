@@ -1,6 +1,6 @@
 ---
 name: world-vault
-description: Search, create, correct, and validate entity/event files in a World Building Framework world via the `wbf` CLI. Use whenever the user wants to look up, add, or change world-building content (characters, locations, events, factions, ...) in this repo.
+description: Search, create, correct, and validate entity/event files in a World Building Framework world via the `wbf` CLI, and answer questions about the world with sources. Use whenever the user wants to look up, add, change, or ask about world-building content (characters, locations, events, factions, ...) in this repo.
 ---
 
 # World Vault authoring
@@ -36,6 +36,14 @@ npx wbf search <query terms...>
 
 Each result has an `id` (the UUID you link with), `title` and `score`, and for entities `entityType` and `tags`. Add `--tags a,b` to require specific tags, and `--limit N` to cap the results.
 
+To read a file, use `read` rather than opening `<uuid>.md` yourself:
+
+```
+npx wbf read --id <uuid>
+```
+
+Besides the file's `frontmatter` and `body`, it returns `linkedFrom`: every file linking to this one, grouped by the field the link sits in (`entities`, `home`, `supersedes`, …), and `body` for files mentioning it in their text. The file itself only shows its own links; `linkedFrom` is the other direction. Before changing something, use it to judge which of those files the change affects, and open only those. You decide what's relevant: a small change to a character rarely touches the place they live in.
+
 ## 3. Writing links
 
 Every relation, in frontmatter or in body text, uses this link form: the target's UUID before the pipe, and its current title after it.
@@ -46,9 +54,15 @@ Every relation, in frontmatter or in body text, uses this link form: the target'
 
 Get the UUID from a search result's `id`, or from the `id` a `create` call just returned. Never write a bare `[[Display Name]]`. The vault only resolves links by UUID.
 
-## 4. Propose before writing
+## 4. Plan, report, then write after the OK
 
-No tool here enforces an approval step, so that's your job. Before calling `create` or `update`, show the user the frontmatter and body you're about to write, and wait for their go-ahead, the way you'd show a diff before editing code.
+No tool here enforces an approval step, so that's your job. For every request that writes something:
+
+1. **Work out the whole change first**, without writing anything: what has to change, which other files it affects (check `linkedFrom` with `read`), and whether each change is a correction (`update`) or a change in the story (a new version, section 8). Validate the new or changed files (section 5) so you know they'll go through.
+2. **Report the plan in plain words**, for all files at once: what you'll create or change, and why. For example: "New version of Alea Marrow (now harbour-master, caused by the new event); new event 'Alea becomes harbour-master', after 'The burning of the harbour'; Port Kavas stays as it is." Don't paste full frontmatter and bodies unless the user asks for them.
+3. **Wait for the user's OK.** If they change the plan, report the new plan.
+4. **Write everything** with `create` and `update`, in an order where every link points at a file that already exists.
+5. **Report what was written**: the new ids, and any warnings. If a write fails, say which and stop, so the user knows what's done and what isn't.
 
 ## 5. Validate before (or instead of) creating
 
@@ -82,9 +96,9 @@ For a **correction** (a typo, a wrong tag, a missing link, badly written text), 
 echo '{"frontmatter": {...}, "body": "..."}' | npx wbf update --id <uuid>
 ```
 
-- **Send the complete content.** The input is the file's whole new content, not just the changed fields. Read the current file (`<uuid>.md`) first, change what needs changing, and send all of it. Any field you leave out is removed.
+- **Send the complete content.** The input is the file's whole new content, not just the changed fields. Read the current file (`npx wbf read --id <uuid>`) first, change what needs changing, and send all of it (`frontmatter` and `body`, not `linkedFrom`). Any field you leave out is removed.
 - **Same checks as `create`**, and `type` can't change.
-- **Show the user what you're changing** before calling it, as with `create`.
+- **Include it in your plan** (section 4) before calling it, as with `create`.
 
 Changing a `title` also changes **other files**:
 - Every link elsewhere written as `[[<uuid>|<old title>]]` is rewritten to show the new title.
@@ -111,3 +125,18 @@ A world can publish several wikis (build variants in `world.config.json`, e.g. a
 - Before writing, check which wikis the file will appear in: compare its `tags` with each variant's `tags` in `world.config.json`.
 - Keep anything meant for fewer readers (a GM secret, a later plot twist) out of files the wider audience sees. Put it in its own file with narrower tags, and link to it from there.
 - A link to a file a wiki leaves out turns into plain text, so its title still shows. Give secret files titles that don't give the secret away.
+
+## 10. Answering questions about the world
+
+(For timeline pages, use the world-timelines skill.)
+
+When the user asks about the world ("Who leads the Tidewardens?", "What happened in Port Kavas after the storm?"), answer from the files, not from memory or invention:
+
+1. **Find** the starting files with `npx wbf search`.
+2. **Read** them with `npx wbf read --id <uuid>`, and follow the links that matter for the question: the file's own links, and `linkedFrom` for the other direction (the events an entity appears in, who has it as `leader`, its later versions). You decide which ones are relevant.
+3. **Answer with sources:** name the file each statement comes from (its title and id), so the user can check it.
+
+Rules:
+- **Only what the files say.** If the world doesn't establish something, say so ("not established in this world") instead of filling the gap. You may suggest ideas, but mark them clearly as suggestions, never as fact.
+- **Time and versions.** An entity can change over time through versions (section 8). Say which point in time your answer is about, e.g. "before the burning of the harbour (year 151) Port Kavas was built on stilts; afterwards it was rebuilt in stone".
+- **The audience.** For "what do the players know?" or anything meant for one wiki, use only files that wiki includes: check its tags and date range in `world.config.json` (each entry under `buildVariants`). Leave out everything else, so you don't give away a secret.
