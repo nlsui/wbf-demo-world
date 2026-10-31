@@ -1,12 +1,13 @@
 {
-  "frameworkVersion": "0.2.7",
+  "frameworkVersion": "0.2.9",
   "branch": "main",
   "agents": [
     "claude"
   ],
+  "skillsDirs": [],
   "files": {
-    ".github/workflows/publish.yml": "b86d1cb6c95442d08c44a29b3e7be1fc139f9b183429a0285623262f5dc391fd",
-    "AGENTS.md": "3242460f46888f4e9b539b330a0d8f3692bd81929b2b96a4b09a7f97e310285c",
+    ".github/workflows/publish.yml": "b40cc97a7863f9134e4ce9e99b342d3aabee5145c6164d6ae6c08b36c9978937",
+    "AGENTS.md": "fe9705c966508d537c9c43d107e1d17b2b458bef0b7f55332ed86bbb62537dec",
     ".claude/skills/world-timelines/SKILL.md": "b5469a970c1a98deaee9b789aed2b56e09098ac4d1b085bbe5554ce2feb5c67c",
     ".claude/skills/world-vault/SKILL.md": "876f304fa27bd79277872a55145e14dbcc38c2b3e3a1215be0ee38e55418f6eb"
   }

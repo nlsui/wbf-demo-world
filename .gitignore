@@ -3,3 +3,5 @@ node_modules/
 .wbf/quartz/
 # Local publish output
 site/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
